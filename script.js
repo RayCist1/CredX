@@ -1,4 +1,17 @@
 /* script.js */
+// Shared keys/helpers
+const CARD_FLAG_KEY = 'credxHasCard';
+const CURRENT_USER_KEY = 'credxCurrentUser';
+
+const getCardKey = () => {
+  const user = localStorage.getItem(CURRENT_USER_KEY) || '__anon';
+  return `${CARD_FLAG_KEY}_${user}`;
+};
+
+const setHasCard = (value) => localStorage.setItem(getCardKey(), value ? 'true' : 'false');
+const hasCard = () => localStorage.getItem(getCardKey()) === 'true';
+const setCurrentUser = (username) => localStorage.setItem(CURRENT_USER_KEY, username || '');
+
 // Auth & toggle logic for landing page
 const container = document.querySelector('.container');
 const registerBtn = document.querySelector('.register-btn');
@@ -43,48 +56,82 @@ if (container && registerBtn && loginBtn) {
   const isValidGmail = (email) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email);
 
   if (loginForm) {
+    const loginPasswordInput = document.getElementById('loginPassword');
+    const loginError = document.getElementById('loginError');
+    
+    if (loginPasswordInput && loginError) {
+      loginPasswordInput.addEventListener('input', () => {
+        if (loginError.textContent) {
+          loginError.textContent = '';
+        }
+      });
+    }
+    
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const username = document.getElementById('loginUsername')?.value.trim();
       const password = document.getElementById('loginPassword')?.value;
 
       if (findUser(username, password)) {
+        if (loginError) loginError.textContent = '';
+        setCurrentUser(username);
         window.location.href = 'card.html';
       } else {
-        alert('Invalid credentials.');
+        if (loginError) {
+          loginError.textContent = 'Invalid username or password';
+        }
       }
     });
   }
 
   if (registerForm) {
+    const registerPasswordInput = document.getElementById('registerPassword');
+    const registerError = document.getElementById('registerError');
+    
+    if (registerPasswordInput && registerError) {
+      registerPasswordInput.addEventListener('input', () => {
+        if (registerError.textContent) {
+          registerError.textContent = '';
+        }
+      });
+    }
+    
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const username = document.getElementById('registerUsername')?.value.trim();
       const email = document.getElementById('registerEmail')?.value.trim();
       const password = document.getElementById('registerPassword')?.value;
-
+      
       if (!username || !email || !password) {
-        alert('Please fill out username, Gmail, and password.');
+        if (registerError) {
+          registerError.textContent = 'Please fill out all fields';
+        }
         return;
       }
 
       if (!isValidGmail(email)) {
-        alert('Please enter a valid Gmail address (example@gmail.com).');
+        if (registerError) {
+          registerError.textContent = 'Please enter a valid Gmail address (example@gmail.com)';
+        }
         return;
       }
 
       const users = loadUsers();
       const exists = users.some((u) => u.username === username || u.email === email);
       if (exists) {
-        alert('That username or Gmail is already registered. Please log in.');
+        if (registerError) {
+          registerError.textContent = 'Username or email already registered. Please log in.';
+        }
         return;
       }
 
       const newUser = { username, email, password };
       users.push(newUser);
       saveUsers(users);
-      alert(`Welcome to CredX, ${username}!`);
-
+      setCurrentUser(username);
+      setHasCard(false);
+      
+      if (registerError) registerError.textContent = '';
       window.location.href = 'card.html';
     });
   }
@@ -444,6 +491,31 @@ if (container && registerBtn && loginBtn) {
       
       elements.cardCvvInput.addEventListener('blur', () => {
         flipCard(false);
+      });
+    }
+
+    const cardForm = document.getElementById('cardForm');
+    const submitBtn = document.querySelector('.card-form__button');
+
+    if (cardForm && submitBtn) {
+      submitBtn.type = 'submit';
+
+      cardForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const missing = [];
+        if (!state.cardNumber || state.cardNumber.length < 12) missing.push('card number');
+        if (!state.cardName) missing.push('card holder name');
+        if (!state.cardMonth || !state.cardYear) missing.push('expiration date');
+        if (!state.cardCvv || state.cardCvv.length < 3) missing.push('CVV');
+
+        if (missing.length) {
+          alert(`Please fill your ${missing.join(', ')} to continue.`);
+          return;
+        }
+
+        setHasCard(true);
+        window.location.href = 'order.html';
       });
     }
   }
