@@ -533,6 +533,55 @@ body::before {
   }
 }
 
+.card-image-selector {
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ced6e0;
+}
+
+.card-image-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.card-image-btn {
+  flex: 1;
+  min-width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  border: 2px solid #7d58a4;
+  background: #fff;
+  color: #7d58a4;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Source Sans Pro", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-image-btn:hover {
+  background: #7d58a4;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(125, 88, 164, 0.3);
+}
+
+.card-image-btn:active {
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 480px) {
+  .card-image-buttons {
+    flex-direction: column;
+  }
+  
+  .card-image-btn {
+    width: 100%;
+  }
+}
+
 .card-input {
   margin-bottom: 20px;
 }
@@ -618,4 +667,162 @@ body::before {
   opacity: 0;
   transform: translateX(-10px) rotate(45deg);
   pointer-events: none;
+}
+
+/* Background Gallery Modal */
+.background-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.background-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.background-modal__content {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 90%;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.background-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 1px solid #e8e8e8;
+  background: linear-gradient(135deg, #7d58a4 0%, #5a3d7a 100%);
+  color: #fff;
+}
+
+.background-modal__header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.background-modal__close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.background-modal__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.background-modal__gallery {
+  padding: 30px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  max-height: calc(85vh - 100px);
+}
+
+.background-modal__gallery-item {
+  position: relative;
+  aspect-ratio: 1.6;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.background-modal__gallery-item:hover {
+  transform: translateY(-5px);
+  border-color: #7d58a4;
+  box-shadow: 0 8px 20px rgba(125, 88, 164, 0.4);
+}
+
+.background-modal__gallery-item.selected {
+  border-color: #7d58a4;
+  box-shadow: 0 0 0 3px rgba(125, 88, 164, 0.3);
+}
+
+.background-modal__gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .background-modal__content {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .background-modal__header {
+    padding: 20px;
+  }
+  
+  .background-modal__header h2 {
+    font-size: 20px;
+  }
+  
+  .background-modal__gallery {
+    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .background-modal__gallery {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    padding: 15px;
+  }
 }

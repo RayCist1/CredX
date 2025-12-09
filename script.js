@@ -146,6 +146,7 @@ if (container && registerBtn && loginBtn) {
   // State management
   const state = {
     currentCardBackground: Math.floor(Math.random() * 25 + 1),
+    currentCardBackgroundPath: null, // For custom uploaded images
     cardName: "",
     cardNumber: "",
     cardMonth: "",
@@ -249,23 +250,53 @@ if (container && registerBtn && loginBtn) {
     const mask = generateCardNumberMask();
     const cardType = getCardType(state.cardNumber);
     const numbers = state.cardNumber.replace(/\D/g, '');
+    const totalDigits = numbers.length;
     
     let html = '';
+    let digitIndex = 0; // Track position in the numbers array (0-based)
+    
     for (let i = 0; i < mask.length; i++) {
       const char = mask[i];
       const isSpace = char.trim() === '';
-      const hasValue = i < numbers.length;
       
-      if (cardType === 'amex' && i > 4 && i < 14 && hasValue && !isSpace) {
-        // Mask middle digits for Amex
-        html += `<div class="card-item__numberItem">*</div>`;
-      } else if (cardType !== 'amex' && i > 4 && i < 15 && hasValue && !isSpace) {
-        // Mask middle digits for other cards
-        html += `<div class="card-item__numberItem">*</div>`;
-      } else if (hasValue) {
-        html += `<div class="card-item__numberItem ${isSpace ? '-active' : ''}">${numbers[i]}</div>`;
+      if (isSpace) {
+        // Add space
+        html += `<div class="card-item__numberItem -active"> </div>`;
+      } else if (char === '#') {
+        // This is a digit position
+        if (digitIndex < totalDigits) {
+          // Determine if this digit should be visible or masked
+          // Show first 4, mask middle, show last 4
+          let shouldMask = false;
+          
+          if (totalDigits > 8) {
+            // We have enough digits to mask the middle
+            if (cardType === 'amex') {
+              // Amex: 15 digits - show first 4 (0-3), mask middle 7 (4-10), show last 4 (11-14)
+              if (digitIndex >= 4 && digitIndex < 11) {
+                shouldMask = true;
+              }
+            } else {
+              // Regular cards: 16 digits - show first 4 (0-3), mask middle 8 (4-11), show last 4 (12-15)
+              if (digitIndex >= 4 && digitIndex < 12) {
+                shouldMask = true;
+              }
+            }
+          }
+          
+          if (shouldMask) {
+            html += `<div class="card-item__numberItem">*</div>`;
+          } else {
+            html += `<div class="card-item__numberItem">${numbers[digitIndex]}</div>`;
+          }
+          digitIndex++;
+        } else {
+          // No more digits, show placeholder
+          html += `<div class="card-item__numberItem">#</div>`;
+        }
       } else {
-        html += `<div class="card-item__numberItem ${isSpace ? '-active' : ''}">${char}</div>`;
+        // Other character in mask (shouldn't happen, but handle it)
+        html += `<div class="card-item__numberItem">${char}</div>`;
       }
     }
     
@@ -321,12 +352,25 @@ if (container && registerBtn && loginBtn) {
   }
 
   // Update card background
-  function updateCardBackground() {
+  function updateCardBackground(imagePath) {
+    let path;
+    if (imagePath) {
+      // Use provided path (for uploads)
+      path = imagePath;
+      state.currentCardBackgroundPath = imagePath;
+    } else if (state.currentCardBackgroundPath) {
+      // Use previously uploaded custom image
+      path = state.currentCardBackgroundPath;
+    } else {
+      // Use gallery image
+      path = `./assets/images/cardbg/${state.currentCardBackground}.jpeg`;
+    }
+    
     if (elements.cardBgFront) {
-      elements.cardBgFront.src = `./assets/images/${state.currentCardBackground}.jpeg`;
+      elements.cardBgFront.src = path;
     }
     if (elements.cardBgBack) {
-      elements.cardBgBack.src = `./assets/images/${state.currentCardBackground}.jpeg`;
+      elements.cardBgBack.src = path;
     }
   }
 
@@ -518,6 +562,110 @@ if (container && registerBtn && loginBtn) {
 
         setHasCard(true);
         window.location.href = 'order.html';
+      });
+    }
+
+    // Background selection functionality
+    setupBackgroundSelection();
+  }
+
+  // Setup background selection (gallery and upload)
+  function setupBackgroundSelection() {
+    const chooseBackgroundBtn = document.getElementById('chooseBackgroundBtn');
+    const uploadBackgroundBtn = document.getElementById('uploadBackgroundBtn');
+    const backgroundUpload = document.getElementById('backgroundUpload');
+    const backgroundModal = document.getElementById('backgroundModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const backgroundGallery = document.getElementById('backgroundGallery');
+
+    // Open gallery modal
+    if (chooseBackgroundBtn && backgroundModal) {
+      chooseBackgroundBtn.addEventListener('click', () => {
+        populateGallery();
+        backgroundModal.classList.add('show');
+      });
+    }
+
+    // Close modal
+    if (closeModalBtn && backgroundModal) {
+      closeModalBtn.addEventListener('click', () => {
+        backgroundModal.classList.remove('show');
+      });
+    }
+
+    // Close modal when clicking outside
+    if (backgroundModal) {
+      backgroundModal.addEventListener('click', (e) => {
+        if (e.target === backgroundModal) {
+          backgroundModal.classList.remove('show');
+        }
+      });
+    }
+
+    // Populate gallery with available backgrounds
+    function populateGallery() {
+      if (!backgroundGallery) return;
+      
+      backgroundGallery.innerHTML = '';
+      
+      // Create 25 background options (1.jpeg to 25.jpeg)
+      for (let i = 1; i <= 25; i++) {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'background-modal__gallery-item';
+        if (state.currentCardBackground === i && !state.currentCardBackgroundPath) {
+          galleryItem.classList.add('selected');
+        }
+        
+        const img = document.createElement('img');
+        img.src = `./assets/images/cardbg/${i}.jpeg`;
+        img.alt = `Background ${i}`;
+        img.loading = 'lazy';
+        
+        galleryItem.appendChild(img);
+        
+        galleryItem.addEventListener('click', () => {
+          // Remove selected class from all items
+          document.querySelectorAll('.background-modal__gallery-item').forEach(item => {
+            item.classList.remove('selected');
+          });
+          
+          // Add selected class to clicked item
+          galleryItem.classList.add('selected');
+          
+          // Update card background
+          state.currentCardBackground = i;
+          state.currentCardBackgroundPath = null;
+          updateCardBackground();
+          
+          // Close modal after a short delay
+          setTimeout(() => {
+            backgroundModal.classList.remove('show');
+          }, 300);
+        });
+        
+        backgroundGallery.appendChild(galleryItem);
+      }
+    }
+
+    // Handle file upload
+    if (uploadBackgroundBtn && backgroundUpload) {
+      uploadBackgroundBtn.addEventListener('click', () => {
+        backgroundUpload.click();
+      });
+
+      backgroundUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const imagePath = event.target.result;
+            state.currentCardBackgroundPath = imagePath;
+            updateCardBackground(imagePath);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert('Please select a valid image file.');
+        }
       });
     }
   }

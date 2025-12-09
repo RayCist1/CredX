@@ -15,7 +15,7 @@
           <div class="card-item__side -front">
             <div class="card-item__focus"></div>
             <div class="card-item__cover">
-              <img src="./assets/images/1.jpeg" class="card-item__bg">
+              <img src="./assets/images/cardbg/1.jpeg" class="card-item__bg">
             </div>
             
             <div class="card-item__wrapper">
@@ -66,7 +66,7 @@
           </div>
           <div class="card-item__side -back">
             <div class="card-item__cover">
-              <img src="./assets/images/1.jpeg" class="card-item__bg">
+              <img src="./assets/images/cardbg/1.jpeg" class="card-item__bg">
             </div>
             <div class="card-item__band"></div>
             <div class="card-item__cvv">
@@ -81,6 +81,18 @@
         </div>
       </div>
       <form class="card-form__inner" id="cardForm">
+        <div class="card-image-selector">
+          <label class="card-input__label">Choose your card's image or upload your own</label>
+          <div class="card-image-buttons">
+            <button type="button" class="card-image-btn" id="chooseBackgroundBtn">
+              Choose from Gallery
+            </button>
+            <button type="button" class="card-image-btn" id="uploadBackgroundBtn">
+              Upload Your Own
+            </button>
+            <input type="file" id="backgroundUpload" accept="image/*" style="display: none;">
+          </div>
+        </div>
         <div class="card-input">
           <label for="cardNumber" class="card-input__label">Card Number</label>
           <input type="text" id="cardNumber" class="card-input__input" data-ref="cardNumber" autocomplete="off">
@@ -115,6 +127,19 @@
       </form>
     </div>
     
+  </div>
+
+  <!-- Background Gallery Modal -->
+  <div class="background-modal" id="backgroundModal">
+    <div class="background-modal__content">
+      <div class="background-modal__header">
+        <h2>Choose Card Background</h2>
+        <button class="background-modal__close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="background-modal__gallery" id="backgroundGallery">
+        <!-- Background images will be inserted here by JavaScript -->
+      </div>
+    </div>
   </div>
 
   <script src="./script.js"></script>
