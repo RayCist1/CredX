@@ -2,15 +2,30 @@
 // Shared keys/helpers
 const CARD_FLAG_KEY = 'credxHasCard';
 const CURRENT_USER_KEY = 'credxCurrentUser';
+const CARD_DATA_KEY_PREFIX = 'credxCardData';
 
 const getCardKey = () => {
   const user = localStorage.getItem(CURRENT_USER_KEY) || '__anon';
   return `${CARD_FLAG_KEY}_${user}`;
 };
 
+const getCardDataKey = () => {
+  const user = localStorage.getItem(CURRENT_USER_KEY) || '__anon';
+  return `${CARD_DATA_KEY_PREFIX}_${user}`;
+};
+
 const setHasCard = (value) => localStorage.setItem(getCardKey(), value ? 'true' : 'false');
 const hasCard = () => localStorage.getItem(getCardKey()) === 'true';
 const setCurrentUser = (username) => localStorage.setItem(CURRENT_USER_KEY, username || '');
+const saveCardData = (data) => localStorage.setItem(getCardDataKey(), JSON.stringify(data || {}));
+const loadCardData = () => {
+  try {
+    const raw = localStorage.getItem(getCardDataKey());
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+};
 
 /* loginregister.html js */
 
@@ -561,6 +576,16 @@ if (container && registerBtn && loginBtn) {
         }
 
         setHasCard(true);
+        saveCardData({
+          cardNumber: state.cardNumber.replace(/\D/g, '').slice(-16),
+          cardName: state.cardName || 'Full Name',
+          cardMonth: state.cardMonth,
+          cardYear: state.cardYear,
+          cardBg: state.currentCardBackgroundPath
+            ? state.currentCardBackgroundPath
+            : `./assets/images/cardbg/${state.currentCardBackground}.jpeg`,
+          cardType: getCardType(state.cardNumber)
+        });
         window.location.href = 'order.html';
       });
     }
@@ -775,6 +800,76 @@ if (container && registerBtn && loginBtn) {
     document.addEventListener('DOMContentLoaded', initHomepage);
   } else {
     initHomepage();
+  }
+})();
+
+/* wallet.html js */
+(function() {
+  'use strict';
+
+  function maskCardNumber(number) {
+    if (!number) return '**** **** **** ****';
+    const digits = number.replace(/\D/g, '');
+    if (digits.length < 4) return '**** **** **** ' + digits.padStart(4, '*');
+    const last4 = digits.slice(-4);
+    return '**** **** **** ' + last4;
+  }
+
+  function initWallet() {
+    const welcomeEl = document.getElementById('wallet-welcome');
+    const cardNumberEl = document.getElementById('wallet-card-number');
+    const cardExpiryEl = document.getElementById('wallet-card-expiry');
+    const cardNameLabel = document.getElementById('wallet-card-name-label');
+    const cardVisual = document.querySelector('.virtual-card');
+    const filterButtons = document.querySelectorAll('.chip-btn');
+    const transactionRows = document.querySelectorAll('.table .row:not(.head)');
+
+    // personalize
+    const currentUser = localStorage.getItem(CURRENT_USER_KEY);
+    if (currentUser && welcomeEl) {
+      welcomeEl.textContent = `Welcome back, ${currentUser}`;
+    }
+
+    // card data
+    const saved = loadCardData();
+    if (saved) {
+      if (cardNumberEl) cardNumberEl.textContent = maskCardNumber(saved.cardNumber);
+      if (cardExpiryEl && saved.cardMonth && saved.cardYear) {
+        cardExpiryEl.textContent = `${String(saved.cardMonth).padStart(2, '0')}/${String(saved.cardYear).slice(-2)}`;
+      }
+      if (cardNameLabel && saved.cardName) {
+        cardNameLabel.textContent = saved.cardName;
+      }
+      if (cardVisual && saved.cardBg) {
+        cardVisual.style.backgroundImage = `url('${saved.cardBg}')`;
+        cardVisual.style.backgroundSize = 'cover';
+        cardVisual.style.backgroundPosition = 'center';
+      }
+    }
+
+    // filters
+    if (filterButtons && transactionRows) {
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+          transactionRows.forEach(row => {
+            if (!filter || filter === 'all') {
+              row.style.display = 'grid';
+            } else {
+              const type = row.dataset.type;
+              row.style.display = type === filter ? 'grid' : 'none';
+            }
+          });
+        });
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWallet);
+  } else {
+    initWallet();
   }
 })();
 

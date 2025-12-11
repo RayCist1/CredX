@@ -12,11 +12,27 @@ html {
 
 body {
   font-family: "Inter UI", "Inter", Arial, sans-serif;
-  background:
-    radial-gradient(120% 120% at 18% 10%, rgba(124, 93, 255, 0.12), transparent),
-    radial-gradient(120% 120% at 82% 0%, rgba(164, 134, 255, 0.12), transparent),
-    linear-gradient(160deg, #fdfdff 0%, #f3f4ff 100%);
+  background: linear-gradient(90deg, #f4d8ff, #c7a6ff, #6c4aff);
   color: #1f2233;
+}
+
+/* Unified button styling to match wallet (leave truck animation intact) */
+:where(button, .ghost-btn):not(.truck-button) {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  box-shadow: none;
+}
+
+:where(button, .ghost-btn):not(.truck-button):hover {
+  background: #f5f5f5;
+  color: #000000;
+}
+
+:where(button, .ghost-btn):not(.truck-button):active {
+  transform: translateY(1px);
 }
 
 .order-page {
@@ -67,19 +83,22 @@ body {
 }
 
 .ghost-btn {
-  background: transparent;
-  border: 1px solid #d7daf0;
-  color: #40445b;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
   padding: 10px 14px;
   border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .ghost-btn:hover {
-  border-color: #7c5dff;
-  color: #1f2233;
-  box-shadow: 0 8px 24px rgba(124, 93, 255, 0.18);
+  background: #f5f5f5;
+  color: #000000;
+}
+
+.ghost-btn:active {
+  transform: translateY(1px);
 }
 
 .order-form {

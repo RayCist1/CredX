@@ -1,10 +1,25 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700|Source+Sans+Pro:400,600,700&display=swap");
 body {
-  background: linear-gradient(90deg, #efd5ff, #b5a8ff, #515ada);
+  background: linear-gradient(90deg, #f4d8ff, #c7a6ff, #6c4aff);
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   min-height: 100vh;
   position: relative;
+}
+:where(button, .card-image-btn, .card-form__button) {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  box-shadow: none;
+}
+:where(button, .card-image-btn, .card-form__button):hover {
+  background: #f5f5f5;
+  color: #000000;
+}
+:where(button, .card-image-btn, .card-form__button):active {
+  transform: translateY(1px);
 }
 body::before {
   content: "";
@@ -18,14 +33,12 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
 * {
   box-sizing: border-box;
 }
 *:focus {
   outline: none;
 }
-
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -39,7 +52,6 @@ body::before {
     flex-direction: column;
   }
 }
-
 .card-form {
   max-width: 570px;
   margin: auto;
@@ -132,14 +144,14 @@ body::before {
 .card-form__button {
   width: 100%;
   height: 55px;
-  background: #7d58a4;
-  border: none;
-  border-radius: 5px;
-  font-size: 22px;
-  font-weight: 500;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 600;
   font-family: "Source Sans Pro", sans-serif;
-  box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
-  color: #fff;
+  box-shadow: none;
+  color: #000000;
   margin-top: 20px;
   cursor: pointer;
 }
@@ -148,7 +160,6 @@ body::before {
     margin-top: 10px;
   }
 }
-
 .card-item {
   max-width: 430px;
   height: 270px;
@@ -523,7 +534,6 @@ body::before {
     margin-bottom: 15px;
   }
 }
-
 .card-list {
   margin-bottom: -130px;
 }
@@ -532,56 +542,46 @@ body::before {
     margin-bottom: -120px;
   }
 }
-
 .card-image-selector {
   margin-bottom: 30px;
   padding-bottom: 25px;
   border-bottom: 1px solid #ced6e0;
 }
-
 .card-image-buttons {
   display: flex;
   gap: 15px;
   margin-top: 12px;
   flex-wrap: wrap;
 }
-
 .card-image-btn {
   flex: 1;
   min-width: 150px;
   height: 50px;
-  border-radius: 5px;
-  border: 2px solid #7d58a4;
-  background: #fff;
-  color: #7d58a4;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #000000;
   font-size: 16px;
   font-weight: 600;
   font-family: "Source Sans Pro", sans-serif;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
-
 .card-image-btn:hover {
-  background: #7d58a4;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(125, 88, 164, 0.3);
+  background: #f5f5f5;
+  color: #000000;
 }
-
 .card-image-btn:active {
-  transform: translateY(0);
+  transform: translateY(1px);
 }
-
 @media screen and (max-width: 480px) {
   .card-image-buttons {
     flex-direction: column;
   }
-  
   .card-image-btn {
     width: 100%;
   }
 }
-
 .card-input {
   margin-bottom: 20px;
 }
@@ -622,54 +622,44 @@ body::before {
   background-repeat: no-repeat;
   padding-right: 30px;
 }
-
 .slide-fade-up-enter-active {
   transition: all 0.25s ease-in-out;
   transition-delay: 0.1s;
   position: relative;
 }
-
 .slide-fade-up-leave-active {
   transition: all 0.25s ease-in-out;
   position: absolute;
 }
-
 .slide-fade-up-enter {
   opacity: 0;
   transform: translateY(15px);
   pointer-events: none;
 }
-
 .slide-fade-up-leave-to {
   opacity: 0;
   transform: translateY(-15px);
   pointer-events: none;
 }
-
 .slide-fade-right-enter-active {
   transition: all 0.25s ease-in-out;
   transition-delay: 0.1s;
   position: relative;
 }
-
 .slide-fade-right-leave-active {
   transition: all 0.25s ease-in-out;
   position: absolute;
 }
-
 .slide-fade-right-enter {
   opacity: 0;
   transform: translateX(10px) rotate(45deg);
   pointer-events: none;
 }
-
 .slide-fade-right-leave-to {
   opacity: 0;
   transform: translateX(-10px) rotate(45deg);
   pointer-events: none;
 }
-
-/* Background Gallery Modal */
 .background-modal {
   display: none;
   position: fixed;
@@ -682,13 +672,11 @@ body::before {
   backdrop-filter: blur(5px);
   animation: fadeIn 0.3s ease;
 }
-
 .background-modal.show {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -697,7 +685,6 @@ body::before {
     opacity: 1;
   }
 }
-
 .background-modal__content {
   background: #fff;
   border-radius: 20px;
@@ -710,7 +697,6 @@ body::before {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.3s ease;
 }
-
 @keyframes slideUp {
   from {
     transform: translateY(50px);
@@ -721,7 +707,6 @@ body::before {
     opacity: 1;
   }
 }
-
 .background-modal__header {
   display: flex;
   justify-content: space-between;
@@ -731,13 +716,11 @@ body::before {
   background: linear-gradient(135deg, #7d58a4 0%, #5a3d7a 100%);
   color: #fff;
 }
-
 .background-modal__header h2 {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
 }
-
 .background-modal__close {
   background: none;
   border: none;
@@ -754,12 +737,10 @@ body::before {
   border-radius: 50%;
   transition: all 0.3s ease;
 }
-
 .background-modal__close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: rotate(90deg);
 }
-
 .background-modal__gallery {
   padding: 30px;
   overflow-y: auto;
@@ -768,7 +749,6 @@ body::before {
   gap: 20px;
   max-height: calc(85vh - 100px);
 }
-
 .background-modal__gallery-item {
   position: relative;
   aspect-ratio: 1.6;
@@ -779,46 +759,38 @@ body::before {
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .background-modal__gallery-item:hover {
   transform: translateY(-5px);
   border-color: #7d58a4;
   box-shadow: 0 8px 20px rgba(125, 88, 164, 0.4);
 }
-
 .background-modal__gallery-item.selected {
   border-color: #7d58a4;
   box-shadow: 0 0 0 3px rgba(125, 88, 164, 0.3);
 }
-
 .background-modal__gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
 @media screen and (max-width: 768px) {
   .background-modal__content {
     width: 95%;
     max-height: 90vh;
   }
-  
   .background-modal__header {
     padding: 20px;
   }
-  
   .background-modal__header h2 {
     font-size: 20px;
   }
-  
   .background-modal__gallery {
     padding: 20px;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 15px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .background-modal__gallery {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
