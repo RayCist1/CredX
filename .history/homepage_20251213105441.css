@@ -460,3 +460,29 @@ main {
 .cta:hover {
     opacity: 0.85;
 }
+@media (max-width: 900px) {
+    .intro {
+        grid-template-columns: 1fr;
+    }
+    .intro-stats {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .callout-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-brand {
+        text-align: center;
+    }
+    .footer-tagline {
+        max-width: 100%;
+    }
+    .footer-social {
+        text-align: center;
+    }
+}
