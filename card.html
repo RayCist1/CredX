@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CredX</title>
+<link rel="stylesheet" href="./card.css">
+</head>
+<body class="card-page">
+<div class="wrapper" id="app">
+    <div class="card-form">
+      <div class="card-list">
+        <div class="card-item">
+          <div class="card-item__side -front">
+            <div class="card-item__focus"></div>
+            <div class="card-item__cover">
+              <img src="./assets/images/cardbg/1.jpeg" class="card-item__bg">
+            </div>
+            <div class="card-item__wrapper">
+              <div class="card-item__top">
+                <img src="./assets/images/chip.png" class="card-item__chip">
+                <div class="card-item__type">
+                  <img src="./assets/images/visa.png" alt="" class="card-item__typeImg">
+                </div>
+              </div>
+              <label for="cardNumber" class="card-item__number" ref="cardNumber">
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem -active"> </div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem -active"> </div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem -active"> </div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+                <div class="card-item__numberItem">#</div>
+              </label>
+              <div class="card-item__content">
+                <label for="cardName" class="card-item__info" ref="cardName">
+                  <div class="card-item__holder">Card Holder</div>
+                  <div class="card-item__name">Full Name</div>
+                </label>
+                <div class="card-item__date" ref="cardDate">
+                  <label for="cardMonth" class="card-item__dateTitle">Expires</label>
+                  <label for="cardMonth" class="card-item__dateItem">
+                    <span>MM</span>
+                  </label>
+                  /
+                  <label for="cardYear" class="card-item__dateItem">
+                    <span>YY</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-item__side -back">
+            <div class="card-item__cover">
+              <img src="./assets/images/cardbg/1.jpeg" class="card-item__bg">
+            </div>
+            <div class="card-item__band"></div>
+            <div class="card-item__cvv">
+                <div class="card-item__cvvTitle">CVV</div>
+                <div class="card-item__cvvBand" id="cardCvvDisplay">
+                </div>
+                <div class="card-item__type">
+                    <img src="./assets/images/visa.png" class="card-item__typeImg">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="card-form__inner" id="cardForm">
+        <div class="card-image-selector">
+          <label class="card-input__label">Choose your card's image or upload your own</label>
+          <div class="card-image-buttons">
+            <button type="button" class="card-image-btn" id="chooseBackgroundBtn">
+              Choose from Gallery
+            </button>
+            <button type="button" class="card-image-btn" id="uploadBackgroundBtn">
+              Upload Your Own
+            </button>
+            <input type="file" id="backgroundUpload" accept="image/*" style="display: none;">
+          </div>
+        </div>
+        <div class="card-input">
+          <label for="cardNumber" class="card-input__label">Card Number</label>
+          <input type="text" id="cardNumber" class="card-input__input" data-ref="cardNumber" autocomplete="off">
+        </div>
+        <div class="card-input">
+          <label for="cardName" class="card-input__label">Card Holder</label>
+          <input type="text" id="cardName" class="card-input__input" data-ref="cardName" autocomplete="off">
+        </div>
+        <div class="card-form__row">
+          <div class="card-form__col">
+            <div class="card-form__group">
+              <label for="cardMonth" class="card-input__label">Expiration Date</label>
+              <select class="card-input__input -select" id="cardMonth" data-ref="cardDate">
+                <option value="" disabled selected>Month</option>
+              </select>
+              <select class="card-input__input -select" id="cardYear" data-ref="cardDate">
+                <option value="" disabled selected>Year</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-form__col -cvv">
+            <div class="card-input">
+              <div class="cvvBOX"><label for="cardCvv" class="card-input__label">CVV</label>
+              <input type="text" class="card-input__input" id="cardCvv" maxlength="3" autocomplete="off"></div>
+            </div>
+          </div>
+        </div>
+        <button class="card-form__button">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="background-modal" id="backgroundModal">
+    <div class="background-modal__content">
+      <div class="background-modal__header">
+        <h2>Choose Card Background</h2>
+        <button class="background-modal__close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="background-modal__gallery" id="backgroundGallery">
+      </div>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
