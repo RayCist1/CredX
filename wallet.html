@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="wallet.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="./api.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -130,11 +131,136 @@
         </div>
       </section>
     </main>
+
+    <!-- Modals for wallet actions -->
+    <div class="wallet-modal" id="sendModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Send Money</h2>
+          <button class="modal-close" data-modal="sendModal">&times;</button>
+        </div>
+        <form id="sendForm" class="modal-form">
+          <div class="form-group">
+            <label for="sendRecipient">Recipient Email/Phone</label>
+            <input type="text" id="sendRecipient" placeholder="Enter recipient" required>
+          </div>
+          <div class="form-group">
+            <label for="sendAmount">Amount</label>
+            <input type="number" id="sendAmount" step="0.01" min="0.01" placeholder="0.00" required>
+          </div>
+          <div class="form-group">
+            <label for="sendNote">Note (Optional)</label>
+            <input type="text" id="sendNote" placeholder="What's this for?">
+          </div>
+          <button type="submit" class="modal-submit-btn">Send Money</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wallet-modal" id="requestModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Request Money</h2>
+          <button class="modal-close" data-modal="requestModal">&times;</button>
+        </div>
+        <form id="requestForm" class="modal-form">
+          <div class="form-group">
+            <label for="requestFrom">Request From</label>
+            <input type="text" id="requestFrom" placeholder="Enter email/phone" required>
+          </div>
+          <div class="form-group">
+            <label for="requestAmount">Amount</label>
+            <input type="number" id="requestAmount" step="0.01" min="0.01" placeholder="0.00" required>
+          </div>
+          <div class="form-group">
+            <label for="requestNote">Note (Optional)</label>
+            <input type="text" id="requestNote" placeholder="What's this for?">
+          </div>
+          <button type="submit" class="modal-submit-btn">Send Request</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wallet-modal" id="transferModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Transfer Money</h2>
+          <button class="modal-close" data-modal="transferModal">&times;</button>
+        </div>
+        <form id="transferForm" class="modal-form">
+          <div class="form-group">
+            <label for="transferTo">Transfer To Account</label>
+            <select id="transferTo" required>
+              <option value="">Select account</option>
+              <option value="savings">Savings Account</option>
+              <option value="checking">Checking Account</option>
+              <option value="investment">Investment Account</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="transferAmount">Amount</label>
+            <input type="number" id="transferAmount" step="0.01" min="0.01" placeholder="0.00" required>
+          </div>
+          <button type="submit" class="modal-submit-btn">Transfer</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wallet-modal" id="topUpModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Top Up Account</h2>
+          <button class="modal-close" data-modal="topUpModal">&times;</button>
+        </div>
+        <form id="topUpForm" class="modal-form">
+          <div class="form-group">
+            <label for="topUpMethod">Payment Method</label>
+            <select id="topUpMethod" required>
+              <option value="">Select method</option>
+              <option value="card">Credit/Debit Card</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="paypal">PayPal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="topUpAmount">Amount</label>
+            <input type="number" id="topUpAmount" step="0.01" min="0.01" placeholder="0.00" required>
+          </div>
+          <button type="submit" class="modal-submit-btn">Top Up</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wallet-modal" id="addMoneyModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add Money</h2>
+          <button class="modal-close" data-modal="addMoneyModal">&times;</button>
+        </div>
+        <form id="addMoneyForm" class="modal-form">
+          <div class="form-group">
+            <label for="addMoneyAmount">Amount</label>
+            <input type="number" id="addMoneyAmount" step="0.01" min="0.01" placeholder="0.00" required>
+          </div>
+          <div class="form-group">
+            <label for="addMoneySource">Source</label>
+            <select id="addMoneySource" required>
+              <option value="">Select source</option>
+              <option value="deposit">Bank Deposit</option>
+              <option value="transfer">External Transfer</option>
+              <option value="cash">Cash Deposit</option>
+            </select>
+          </div>
+          <button type="submit" class="modal-submit-btn">Add Money</button>
+        </form>
+      </div>
+    </div>
+
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-brand">
           <a href="index.html" class="footer-logo-link">
-            <img src="./assets/images/credx.svg" alt="CredX Logo" width="120px"/>
+            <img src="./assets/images/credx.jpg" alt="CredX Logo" width="120px"/>
           </a>
           <p class="footer-tagline">Unlock Rewards. Simplify Spending. Choose Your Card.</p>
         </div>

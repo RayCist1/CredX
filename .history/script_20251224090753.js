@@ -1,6 +1,5 @@
 /* script.js */
 /* Shared key*/
-console.log('Script.js loaded');
 const CARD_FLAG_KEY = 'credxHasCard';
 const CURRENT_USER_KEY = 'credxCurrentUser';
 const CARD_DATA_KEY_PREFIX = 'credxCardData';

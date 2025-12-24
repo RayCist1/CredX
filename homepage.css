@@ -1,6 +1,26 @@
 * {
     box-sizing: border-box;
 }
+
+button {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+button:hover {
+    background: #0f172a;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
 body {
    background: linear-gradient(90deg, #f4d8ff, #c7a6ff, #6c4aff);
     display: flex;
@@ -21,10 +41,41 @@ a.register {
     text-decoration: none;
     font-size: 18px;
     font-weight: 600;
-    transition: 0.25s ease-in-out;
-    border: 2px solid #fff9f9;
+    transition: all 0.3s ease;
+    border: 1px solid #000000;
     cursor: pointer;
     font-family: inherit;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+a.login-btn::before,
+a.register::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+a.login-btn:hover::before,
+a.register:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+a.login-btn,
+a.register {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
 }
 .user-info {
     display: flex;
@@ -39,20 +90,63 @@ a.register {
 .logout-btn {
     padding: 12px 28px;
     border-radius: 30px;
-    background: #ffff;
-    color: black;
+    background: #ffffff;
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
-    transition: 0.3s ease;
-    border: none;
+    transition: all 0.3s ease;
+    border: 1px solid #000000;
     cursor: pointer;
     font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.logout-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.logout-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.logout-btn span {
+    position: relative;
+    z-index: 1;
 }
 a.login-btn:hover,
 a.register:hover {
-    background: #000;
-    color: #fff;
+    background: #0f172a;
+    color: #ffffff;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+a.login-btn:active,
+a.register:active {
+    transform: translateY(0);
 }
 .section {
     margin-bottom: 10px;
@@ -68,23 +162,54 @@ a.register:hover {
     display: inline-block;
     padding: 12px 28px;
     border-radius: 30px;
-    background: white;
-    color: #1e1e1e;
+    background: #ffffff;
+    color: #000000;
     text-decoration: none;
     font-size: 18px;
     font-weight: 600;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
     outline: none;
     box-shadow: none;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    border: none;
+    font-family: inherit;
+    border: 1px solid #000000;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+
+.get::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.get:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
 .get:hover {
-    background: #000000;
+    background: #0f172a;
     color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(200, 181, 232, 0.3);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.get:active {
+    transform: translateY(0);
+}
+
+.get a {
+    position: relative;
+    z-index: 1;
 }
 .get a {
     color: inherit;

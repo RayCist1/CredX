@@ -1,0 +1,7 @@
+node_modules/
+credx.db
+credx.db-journal
+.env
+*.log
+.DS_Store
+

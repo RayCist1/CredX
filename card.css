@@ -12,6 +12,26 @@ body {
 *:focus {
   outline: none;
 }
+
+button {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+button:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -44,6 +64,18 @@ body {
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .card-form__inner::before {
   content: "";
@@ -54,10 +86,26 @@ body {
   height: 4px;
   background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 }
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 30px 15px;
+  }
+  .card-form__inner {
+    padding: 30px 20px;
+    padding-top: 160px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .card-form__inner {
     padding: 25px;
     padding-top: 165px;
+  }
+  .card-image-buttons {
+    flex-direction: column;
+  }
+  .card-image-btn {
+    width: 100%;
   }
 }
 @media screen and (max-width: 360px) {
@@ -65,10 +113,47 @@ body {
     padding: 15px;
     padding-top: 165px;
   }
+  .card-form__button {
+    font-size: 16px;
+    height: 48px;
+  }
+}
+
+/* Additional mobile optimizations */
+@media screen and (max-width: 768px) {
+  .card-form__row {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .card-form__col {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .card-form__col:last-child {
+    margin-bottom: 0;
+  }
+  .card-form__col.-cvv {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  .card-form__col.-cvv .cvvBOX {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-input__input {
+    font-size: 16px;
+  }
+  .card-input__label {
+    font-size: 13px;
+  }
 }
 .card-form__row {
   display: flex;
   align-items: flex-start;
+  gap: 12px;
 }
 @media screen and (max-width: 480px) {
   .card-form__row {
@@ -77,28 +162,34 @@ body {
 }
 .card-form__col {
   flex: auto;
-  margin-right: 35px;
 }
 .card-form__col:last-child {
   margin-right: 0;
 }
 @media screen and (max-width: 480px) {
+  .card-form__row {
+    gap: 0;
+  }
   .card-form__col {
     margin-right: 0;
-    flex: unset;
+    flex: 1 1 100%;
     width: 100%;
     margin-bottom: 20px;
   }
   .card-form__col:last-child {
     margin-bottom: 0;
   }
-}
-.card-form__col.-cvv {
-  max-width: 150px;
+  .card-form__col.-cvv .cvvBOX {
+    margin-top: 0;
+  }
 }
 @media screen and (max-width: 480px) {
   .card-form__col.-cvv {
     max-width: initial;
+    flex: 1 1 auto;
+  }
+  .card-form__col.-cvv .cvvBOX {
+    margin-top: 0;
   }
 }
 .card-form__group {
@@ -127,6 +218,44 @@ body {
   color: #000000;
   margin-top: 20px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-form__button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: 0;
+}
+
+.card-form__button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.card-form__button:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.card-form__button:active {
+  transform: translateY(0);
+}
+
+.card-form__button span {
+  position: relative;
+  z-index: 1;
 }
 @media screen and (max-width: 480px) {
   .card-form__button {
@@ -141,6 +270,18 @@ body {
   position: relative;
   z-index: 2;
   width: 100%;
+  animation: cardSlideIn 0.8s ease-out;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 @media screen and (max-width: 480px) {
   .card-item {
@@ -538,14 +679,18 @@ body {
   font-weight: 600;
   font-family: "Source Sans Pro", sans-serif;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  transition: all 0.3s ease;
 }
+
 .card-image-btn:hover {
-  background: #f5f5f5;
-  color: #000000;
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
 }
+
 .card-image-btn:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 @media screen and (max-width: 480px) {
   .card-image-buttons {
@@ -582,9 +727,12 @@ body {
 }
 .card-input__input:hover, .card-input__input:focus {
   border-color: #3d9cff;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }
 .card-input__input:focus {
   box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
+  transform: translateY(-2px);
 }
 .card-input__input.-select {
   -webkit-appearance: none;
@@ -771,13 +919,245 @@ body {
     padding: 15px;
   }
 }
-/*
-.card-input__input, .cardCvv {
-  padding-top: 5px;
-}*/
 
 .cvvBOX {
   display: flex;
   flex-direction: column;
-  margin-top: 11px;
+  margin-top: 0;
+}
+
+.card-form__col.-cvv {
+  max-width: 150px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.card-form__col.-cvv .card-input {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.card-form__col.-cvv .cvvBOX {
+  width: 100%;
+  margin-top: 19px;
+}
+
+/* Footer Styles */
+.footer {
+  margin-top: 60px;
+  background: linear-gradient(180deg, #ffffff 0%, #F9FAFB 100%);
+  padding: 60px 20px 30px;
+  border-top: 1px solid #e8e8e8;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.footer-brand {
+  text-align: left;
+}
+
+.footer-logo-link {
+  display: inline-block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.footer-tagline {
+  margin: 0;
+  color: #505050;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.footer-social {
+  text-align: right;
+}
+
+.social-label {
+  margin: 0 0 20px 0;
+  color: #7d7d7d;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.copyright {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e8e8e8;
+  text-align: center;
+}
+
+.copyright p {
+  margin: 0;
+  color: #7d7d7d;
+  font-size: 14px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.example-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-2 .icon-content {
+  margin: 0 10px;
+  position: relative;
+}
+
+.example-2 .icon-content .tooltip {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #000;
+  white-space: nowrap;
+}
+
+.example-2 .icon-content:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: -50px;
+}
+
+.example-2 .icon-content a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #4d4d4d;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.example-2 .icon-content a:hover {
+  box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+}
+
+.example-2 .icon-content a svg {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+}
+
+.example-2 .icon-content a:hover {
+  color: white;
+}
+
+.example-2 .icon-content a .filled {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+}
+
+.example-2 .icon-content a:hover .filled {
+  height: 100%;
+}
+
+.example-2 .icon-content a[data-social="linkedin"] .filled,
+.example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+  background-color: #0274b3;
+}
+
+.example-2 .icon-content a[data-social="github"] .filled,
+.example-2 .icon-content a[data-social="github"] ~ .tooltip {
+  background-color: #24262a;
+}
+
+.example-2 .icon-content a[data-social="instagram"] .filled,
+.example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5b51db,
+    #b33ab4,
+    #c135b4,
+    #e1306c,
+    #fd1f1f
+  );
+}
+
+.example-2 .icon-content a[data-social="youtube"] .filled,
+.example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+  background-color: #ff0000;
+}
+
+.example-2 .icon-content a[data-social="twitter"] .filled,
+.example-2 .icon-content a[data-social="twitter"] ~ .tooltip {
+  background-color: #000000;
+}
+
+.example-2 .icon-content a[data-social="tiktok"] .filled,
+.example-2 .icon-content a[data-social="tiktok"] ~ .tooltip {
+  background-color: #000000;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .footer-brand {
+    text-align: center;
+  }
+  .footer-tagline {
+    max-width: 100%;
+  }
+  .footer-social {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    padding: 40px 20px 25px;
+  }
+  .footer-content {
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .footer-tagline {
+    font-size: 14px;
+  }
 }
