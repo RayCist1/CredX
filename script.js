@@ -1,6 +1,9 @@
 /* script.js */
 /* Shared key*/
+<<<<<<< HEAD
 console.log('Script.js loaded');
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 const CARD_FLAG_KEY = 'credxHasCard';
 const CURRENT_USER_KEY = 'credxCurrentUser';
 const CARD_DATA_KEY_PREFIX = 'credxCardData';
@@ -36,6 +39,7 @@ const registerBtn = document.querySelector('.register-btn');
 const loginBtn = document.querySelector('.login-btn');
 
 if (container && registerBtn && loginBtn) {
+<<<<<<< HEAD
     console.log('Toggle elements found, attaching listeners');
     registerBtn.addEventListener('click', () => {
       container.classList.add('active');
@@ -50,6 +54,43 @@ if (container && registerBtn && loginBtn) {
 
     console.log('Login form:', loginForm);
     console.log('Register form:', registerForm);
+=======
+  registerBtn.addEventListener('click', () => {
+    container.classList.add('active');
+  });
+
+  loginBtn.addEventListener('click', () => {
+    container.classList.remove('active');
+  });
+
+  const loginForm = document.querySelector('.login-form');
+  const registerForm = document.querySelector('.register-form');
+
+  const STORAGE_KEY = 'credxUsers';
+  const DEFAULT_USER = { username: 'CredX', password: 'credxteam' };
+
+  const loadUsers = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  };
+
+  const saveUsers = (users) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+  };
+
+  const findUser = (username, password) => {
+    if (username === DEFAULT_USER.username && password === DEFAULT_USER.password) {
+      return DEFAULT_USER;
+    }
+    const users = loadUsers();
+    return users.find((u) => u.username === username && u.password === password);
+  };
+
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
   const isValidGmail = (email) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email);
 
   if (loginForm) {
@@ -64,6 +105,7 @@ if (container && registerBtn && loginBtn) {
       });
     }
     
+<<<<<<< HEAD
     loginForm.addEventListener('submit', async (e) => {
       console.log('Login form submitted');
       e.preventDefault();
@@ -89,6 +131,20 @@ if (container && registerBtn && loginBtn) {
       } catch (error) {
         if (loginError) {
           loginError.textContent = error.message || 'Invalid username or password';
+=======
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername')?.value.trim();
+      const password = document.getElementById('loginPassword')?.value;
+
+      if (findUser(username, password)) {
+        if (loginError) loginError.textContent = '';
+        setCurrentUser(username);
+        window.location.href = 'index.html';
+      } else {
+        if (loginError) {
+          loginError.textContent = 'Invalid username or password';
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
         }
       }
     });
@@ -106,6 +162,7 @@ if (container && registerBtn && loginBtn) {
       });
     }
     
+<<<<<<< HEAD
     registerForm.addEventListener('submit', async (e) => {
       console.log('Register form submitted');
       e.preventDefault();
@@ -114,6 +171,13 @@ if (container && registerBtn && loginBtn) {
       const email = document.getElementById('registerEmail')?.value.trim();
       const password = document.getElementById('registerPassword')?.value;
       const registerError = document.getElementById('registerError');
+=======
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('registerUsername')?.value.trim();
+      const email = document.getElementById('registerEmail')?.value.trim();
+      const password = document.getElementById('registerPassword')?.value;
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
       
       if (!username || !email || !password) {
         if (registerError) {
@@ -124,11 +188,16 @@ if (container && registerBtn && loginBtn) {
 
       if (!isValidGmail(email)) {
         if (registerError) {
+<<<<<<< HEAD
           registerError.textContent = 'Please enter a valid Gmail address';
+=======
+          registerError.textContent = 'Please enter a valid Gmail address (credxteam@gmail.com)';
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
         }
         return;
       }
 
+<<<<<<< HEAD
       try {
         const response = await CredXAPI.Auth.register(username, email, password);
         if (response.success) {
@@ -142,6 +211,25 @@ if (container && registerBtn && loginBtn) {
           registerError.textContent = error.message || 'Registration failed';
         }
       }
+=======
+      const users = loadUsers();
+      const exists = users.some((u) => u.username === username || u.email === email);
+      if (exists) {
+        if (registerError) {
+          registerError.textContent = 'Username or email already registered. Please log in.';
+        }
+        return;
+      }
+
+      const newUser = { username, email, password };
+      users.push(newUser);
+      saveUsers(users);
+      setCurrentUser(username);
+      setHasCard(false);
+      
+      if (registerError) registerError.textContent = '';
+      window.location.href = 'index.html';
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
     });
   }
 }
@@ -198,8 +286,13 @@ if (container && registerBtn && loginBtn) {
     elements.focusElement = document.querySelector('.card-item__focus');
     elements.cardNumberDisplay = document.querySelector('.card-item__number');
     elements.cardNameDisplay = document.querySelector('.card-item__name');
+<<<<<<< HEAD
     elements.cardMonthDisplay = document.querySelector('label[for="cardMonth"].card-item__dateItem span');
     elements.cardYearDisplay = document.querySelector('label[for="cardYear"].card-item__dateItem span');
+=======
+    elements.cardMonthDisplay = document.querySelector('.card-item__dateItem:first-of-type span');
+    elements.cardYearDisplay = document.querySelector('.card-item__dateItem:last-of-type span');
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
     elements.cardCvvDisplay = document.getElementById('cardCvvDisplay');
     elements.cardTypeImg = document.querySelector('.card-item__side.-front .card-item__typeImg');
     elements.cardTypeImgBack = document.querySelector('.card-item__side.-back .card-item__typeImg');
@@ -327,12 +420,19 @@ if (container && registerBtn && loginBtn) {
   // Update card date display
   function updateCardDateDisplay() {
     if (elements.cardMonthDisplay) {
+<<<<<<< HEAD
       const month = state.cardMonth || 'MM';
       elements.cardMonthDisplay.textContent = month;
     }
     if (elements.cardYearDisplay) {
       const year = state.cardYear ? String(state.cardYear).slice(2, 4) : 'YY';
       elements.cardYearDisplay.textContent = year;
+=======
+      elements.cardMonthDisplay.textContent = state.cardMonth || 'MM';
+    }
+    if (elements.cardYearDisplay) {
+      elements.cardYearDisplay.textContent = state.cardYear ? String(state.cardYear).slice(2, 4) : 'YY';
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
     }
   }
 
@@ -508,10 +608,13 @@ if (container && registerBtn && loginBtn) {
     if (elements.cardMonthSelect) {
       elements.cardMonthSelect.addEventListener('change', (e) => {
         state.cardMonth = e.target.value;
+<<<<<<< HEAD
         // Update display immediately
         if (elements.cardMonthDisplay) {
           elements.cardMonthDisplay.textContent = state.cardMonth || 'MM';
         }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
         updateCardDateDisplay();
       });
       
@@ -559,7 +662,11 @@ if (container && registerBtn && loginBtn) {
     if (cardForm && submitBtn) {
       submitBtn.type = 'submit';
 
+<<<<<<< HEAD
       cardForm.addEventListener('submit', async (e) => {
+=======
+      cardForm.addEventListener('submit', (e) => {
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
         e.preventDefault();
 
         const missing = [];
@@ -573,6 +680,7 @@ if (container && registerBtn && loginBtn) {
           return;
         }
 
+<<<<<<< HEAD
         try {
           // Check if user is authenticated
           const token = CredXAPI.getAuthToken();
@@ -611,6 +719,20 @@ if (container && registerBtn && loginBtn) {
         } catch (error) {
           alert('Error saving card: ' + (error.message || 'Please try again'));
         }
+=======
+        setHasCard(true);
+        saveCardData({
+          cardNumber: state.cardNumber.replace(/\D/g, '').slice(-16),
+          cardName: state.cardName || 'Full Name',
+          cardMonth: state.cardMonth,
+          cardYear: state.cardYear,
+          cardBg: state.currentCardBackgroundPath
+            ? state.currentCardBackgroundPath
+            : `./assets/images/cardbg/${state.currentCardBackground}.jpeg`,
+          cardType: getCardType(state.cardNumber)
+        });
+        window.location.href = 'order.html';
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
       });
     }
 
@@ -731,6 +853,7 @@ if (container && registerBtn && loginBtn) {
     updateCardDateDisplay();
     updateCardType();
     
+<<<<<<< HEAD
     // Ensure month display is initialized
     if (elements.cardMonthDisplay) {
       elements.cardMonthDisplay.textContent = state.cardMonth || 'MM';
@@ -739,6 +862,8 @@ if (container && registerBtn && loginBtn) {
       elements.cardYearDisplay.textContent = state.cardYear ? String(state.cardYear).slice(2, 4) : 'YY';
     }
     
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
     // Focus card number input on load
     if (elements.cardNumberInput) {
       elements.cardNumberInput.focus();
@@ -757,7 +882,11 @@ if (container && registerBtn && loginBtn) {
 (function() {
   'use strict';
   
+<<<<<<< HEAD
   async function initHomepage() {
+=======
+  function initHomepage() {
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
     const currentUser = localStorage.getItem('credxCurrentUser');
     const authButtons = document.getElementById('auth-buttons');
     const userInfo = document.getElementById('user-info');
@@ -765,6 +894,7 @@ if (container && registerBtn && loginBtn) {
     const logoutBtn = document.getElementById('logout-btn');
     const welcomeMessage = document.getElementById('welcome-message');
     
+<<<<<<< HEAD
     // Check if user has valid token
     const token = CredXAPI.getAuthToken();
     let isAuthenticated = false;
@@ -782,6 +912,10 @@ if (container && registerBtn && loginBtn) {
     
     // Show/hide login buttons or user info based on login status
     if (isAuthenticated && currentUser) {
+=======
+    // Show/hide login buttons or user info based on login status
+    if (currentUser) {
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
       // User is logged in
       if (authButtons) authButtons.style.display = 'none';
       if (userInfo) userInfo.style.display = 'flex';
@@ -798,7 +932,10 @@ if (container && registerBtn && loginBtn) {
     // Logout functionality
     if (logoutBtn) {
       logoutBtn.addEventListener('click', () => {
+<<<<<<< HEAD
         CredXAPI.Auth.logout();
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
         localStorage.removeItem('credxCurrentUser');
         window.location.href = 'index.html';
       });
@@ -985,6 +1122,7 @@ if (container && registerBtn && loginBtn) {
     initOrder();
   }
 })();
+<<<<<<< HEAD
 
 /* wallet.html js */
 (function() {
@@ -1576,3 +1714,5 @@ if (container && registerBtn && loginBtn) {
     initWallet();
   }
 })();
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe

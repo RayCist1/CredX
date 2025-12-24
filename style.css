@@ -9,7 +9,10 @@
 }
 body {
   display: flex;
+<<<<<<< HEAD
   flex-direction: column;
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -18,13 +21,17 @@ body {
 .container {
   position: relative;
   width: 850px;
+<<<<<<< HEAD
   max-width: 100%;
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
   height: 550px;
   background: #fff;
   margin: 20px;
   border-radius: 30px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+<<<<<<< HEAD
   animation: fadeInScale 0.6s ease-out;
 }
 
@@ -37,6 +44,8 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .container h1 {
   font-size: 36px;
@@ -121,6 +130,7 @@ form {
 .btn {
   width: 100%;
   height: 48px;
+<<<<<<< HEAD
   background: #ffffff;
   border: 1px solid #000000;
   border-radius: 8px;
@@ -162,6 +172,16 @@ button:hover {
 
 button:active {
   transform: translateY(0);
+=======
+  background: #7494ec;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .social-icons {
   display: flex;
@@ -234,6 +254,7 @@ button:active {
   box-shadow: none;
 }
 @media screen and (max-width: 650px) {
+<<<<<<< HEAD
   body {
     padding: 10px;
   }
@@ -241,6 +262,10 @@ button:active {
     height: calc(100vh - 40px);
     width: 100%;
     margin: 10px;
+=======
+  .container {
+    height: calc(100vh - 40px);
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
   }
   .form-box {
     bottom: 0;
@@ -280,9 +305,12 @@ button:active {
   .container.active .toggle-panel.toggle-right {
     bottom: 0;
   }
+<<<<<<< HEAD
   .footer {
     margin-top: 20px;
   }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 @media screen and (max-width: 400px) {
   .form-box {
@@ -292,6 +320,7 @@ button:active {
   .toggle-panel h1 {
     font-size: 30px;
   }
+<<<<<<< HEAD
 }
 
 /* Footer Styles */
@@ -495,4 +524,6 @@ button:active {
   .footer {
     padding: 40px 20px 25px;
   }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }

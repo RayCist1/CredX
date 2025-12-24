@@ -22,12 +22,16 @@ body {
 .order-shell {
   min-height: 100vh;
   display: flex;
+<<<<<<< HEAD
   flex-direction: column;
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
   align-items: center;
   justify-content: center;
   padding: 40px 16px;
 }
 
+<<<<<<< HEAD
 @media screen and (max-width: 768px) {
   .order-shell {
     padding: 20px 12px;
@@ -66,6 +70,8 @@ body {
   }
 }
 
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 .order-card {
   width: min(960px, 100%);
   background: rgba(255, 255, 255, 0.95);
@@ -74,6 +80,7 @@ body {
   padding: 24px;
   box-shadow: 0 30px 70px rgba(68, 55, 140, 0.18);
   backdrop-filter: blur(12px);
+<<<<<<< HEAD
   animation: fadeInUp 0.6s ease-out;
 }
 
@@ -86,6 +93,8 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 
 .order-header {
@@ -120,6 +129,7 @@ body {
   padding: 10px 14px;
   border-radius: 10px;
   cursor: pointer;
+<<<<<<< HEAD
   transition: all 0.3s ease;
   font-family: inherit;
 }
@@ -166,6 +176,18 @@ button:active {
   to {
     opacity: 1;
   }
+=======
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.ghost-btn:hover {
+  background: #f5f5f5;
+  color: #000000;
+}
+
+.ghost-btn:active {
+  transform: translateY(1px);
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 
 .order-form {
@@ -206,6 +228,7 @@ button:active {
 .order-form input:focus {
   outline: 2px solid #7c5dff;
   border-color: #7c5dff;
+<<<<<<< HEAD
   transform: translateY(-2px);
   transition: all 0.3s ease;
 }
@@ -216,6 +239,8 @@ button:active {
 
 .order-form input:hover {
   border-color: #7c5dff;
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 
 .cta-row {
@@ -281,6 +306,7 @@ button:active {
   transform-style: preserve-3d;
   transform: rotateX(var(--rx, 0deg)) translateZ(0);
   transition: transform 0.5s, border-radius 0.3s linear var(--br-d, 0s);
+<<<<<<< HEAD
   overflow: hidden;
 }
 
@@ -318,6 +344,9 @@ button:active {
   opacity: 1;
 }
 
+=======
+}
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 .truck-button:before, .truck-button:after {
   content: "";
   position: absolute;
@@ -342,6 +371,7 @@ button:active {
   line-height: 24px;
   opacity: var(--o, 1);
   transition: opacity 0.3s;
+<<<<<<< HEAD
   position: relative;
   z-index: 3;
 }
@@ -349,6 +379,8 @@ button:active {
 .truck-button .truck {
   position: relative;
   z-index: 2;
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .truck-button .success {
   --o: 0;
@@ -527,6 +559,7 @@ button:active {
 .truck-button.animation.done .success {
   --o: 1;
   --offset: 0;
+<<<<<<< HEAD
 }
 
 /* Footer Styles */
@@ -736,4 +769,6 @@ ul {
   .footer {
     padding: 40px 20px 25px;
   }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }

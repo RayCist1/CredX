@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+<<<<<<< HEAD
 
 button {
     background: #ffffff;
@@ -21,6 +22,8 @@ button:hover {
 button:active {
     transform: translateY(0);
 }
+=======
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 body {
    background: linear-gradient(90deg, #f4d8ff, #c7a6ff, #6c4aff);
     display: flex;
@@ -41,6 +44,7 @@ a.register {
     text-decoration: none;
     font-size: 18px;
     font-weight: 600;
+<<<<<<< HEAD
     transition: all 0.3s ease;
     border: 1px solid #000000;
     cursor: pointer;
@@ -76,6 +80,12 @@ a.register {
     position: relative;
     z-index: 1;
     display: inline-block;
+=======
+    transition: 0.25s ease-in-out;
+    border: 2px solid #fff9f9;
+    cursor: pointer;
+    font-family: inherit;
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .user-info {
     display: flex;
@@ -90,6 +100,7 @@ a.register {
 .logout-btn {
     padding: 12px 28px;
     border-radius: 30px;
+<<<<<<< HEAD
     background: #ffffff;
     color: #000000;
     font-size: 18px;
@@ -147,6 +158,22 @@ a.register:hover {
 a.login-btn:active,
 a.register:active {
     transform: translateY(0);
+=======
+    background: #ffff;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+a.login-btn:hover,
+a.register:hover {
+    background: #000;
+    color: #fff;
+    transform: translateY(-2px);
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .section {
     margin-bottom: 10px;
@@ -162,6 +189,7 @@ a.register:active {
     display: inline-block;
     padding: 12px 28px;
     border-radius: 30px;
+<<<<<<< HEAD
     background: #ffffff;
     color: #000000;
     text-decoration: none;
@@ -210,6 +238,25 @@ a.register:active {
 .get a {
     position: relative;
     z-index: 1;
+=======
+    background: white;
+    color: #1e1e1e;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    outline: none;
+    box-shadow: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border: none;
+    cursor: pointer;
+}
+.get:hover {
+    background: #000000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200, 181, 232, 0.3);
+>>>>>>> 91453649ad4af47767a35aadb5e42bb511f085fe
 }
 .get a {
     color: inherit;
